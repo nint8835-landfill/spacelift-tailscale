@@ -29,7 +29,11 @@ RUN echo "hosts: files dns" > /etc/nsswitch.conf \
     && adduser --disabled-password --uid=1983 spacelift
 
 # Tailscale-related commands
-RUN apk add tailscale
+RUN apk add tailscale && mkdir /spacelift-tailscale
+
+COPY init-tailscale.sh /spacelift-tailscale/
+
+RUN chmod +x /spacelift-tailscale/init-tailscale.sh
 
 # User command moved to the end, so we still have the ability to install things up until the end of the build
 USER spacelift
