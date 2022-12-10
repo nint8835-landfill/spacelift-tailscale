@@ -28,7 +28,8 @@ RUN chmod 755 /bin/terragrunt
 RUN echo "hosts: files dns" > /etc/nsswitch.conf \
     && adduser --disabled-password --uid=1983 spacelift
 
-USER spacelift
-
 # Tailscale-related commands
 RUN apk add tailscale
+
+# User command moved to the end, so we still have the ability to install things up until the end of the build
+USER spacelift
