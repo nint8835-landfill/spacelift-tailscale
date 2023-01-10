@@ -1,8 +1,5 @@
 #!/bin/sh
 
-echo "Starting tailscaled..."
-(nohup tailscaled --tun=userspace-networking --outbound-http-proxy-listen=localhost:1054 --socks5-server=localhost:1055 --socket=/tmp/tailscaled.sock 2>~/tailscaled.log &)
-
 echo "Connecting to Tailscale..."
 HOSTNAME="spacelift-$(cat /etc/hostname)"
 tailscale --socket=/tmp/tailscaled.sock up --authkey ${TAILSCALE_AUTH_KEY} --hostname=${HOSTNAME} --accept-routes
